@@ -94,7 +94,7 @@ function downloadPrebuild (downloadUrl, opts, cb) {
       writable: true,
       hardlinkAsFilesFallback: true
     }
-    var extract = tfs.extract(opts.path, options).on('entry', updateName)
+    var extract = tfs.extract('.', options).on('entry', updateName)
 
     pump(fs.createReadStream(cachedPrebuild), zlib.createGunzip(), extract,
       function (err) {
@@ -103,7 +103,7 @@ function downloadPrebuild (downloadUrl, opts, cb) {
         var resolved
         if (binaryName) {
           try {
-            resolved = path.resolve(opts.path || '.', binaryName)
+            resolved = path.resolve('.', binaryName)
           } catch (err) {
             return cb(err)
           }
